@@ -3,7 +3,7 @@
 require __DIR__."/db/database.php";
 require __DIR__."/utilities/assert.php";
 
-session_start();
+//session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "GET") {
 $user = $_GET["username"];
