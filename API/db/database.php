@@ -93,9 +93,14 @@ class Database{
     
     function consulta($con){
         $result = $this->conn->query($con);
-        if($this->conn->error){
-            throw new Exception("error de la base de datos -> " . $this->conn->error);
+        $output = [];
+        while($row = $result->fetch_assoc()){
+            $output[] = $row;
         }
-        return $result;
+        $result->free();
+        if($this->conn->error){
+            throw new Exception("Error de la base de datos -> " . $this->conn->error);
+        }
+        return $output;
     }
 }
