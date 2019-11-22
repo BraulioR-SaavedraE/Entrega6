@@ -1,7 +1,6 @@
 <?php
 
 require __DIR__."/db/database.php";
-require __DIR__."/utilities/assert.php";
 
 //session_start();
 
@@ -13,17 +12,24 @@ $db= Database::getInstance();
 $resultado=[];
 
 	try{
-		$rs = (object)$db->consulta($consulta);
+		$rs = $db->consulta($consulta);
 		$identificador=$user.$pass;
-		$resultado = [
-			"status" => "ok",
-			"key" => hash("sha256", $identificador),
+		if (count($rs) > 0) {
+			$resultado = [
+				"status" => "ok",
+				"key" => hash("sha256", $identificador),
 			];
+		} else {
+			$resultado = [
+				"status" => "failed",
+				"key" => "incorrect username or password",
+			];
+		}
 	}catch(Exception $e) {
 		$resultado = [
 			"status" => "failed",
 			"Message" => $e->getMessage(),
-			];
+		];
 	}
 	echo json_encode($resultado);
 }

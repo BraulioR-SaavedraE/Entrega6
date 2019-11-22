@@ -4,6 +4,8 @@ CREATE USER 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567';
 GRANT ALL PRIVILEGES ON *.* TO 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567*';
 use id11511314_entrega6;
 
+select * from user;
+
 drop table if exists dog;
 create table dog(
     idDog int(3) not null primary key,
@@ -42,3 +44,16 @@ sp: begin
     select 'ok' as msj;
 end; qwe
 delimiter ;
+
+drop procedure if exists sp_auth;
+delimiter qwe
+create procedure sp_auth(in ky varchar(100))
+begin
+	if exists (select * from user where sha2(concat(username, password), 256) = ky) then
+		select idUser as id from user where sha2(concat(username, password), 256) = ky;
+	else
+		select 0 as id;
+	end if;
+end; qwe
+delimiter ;
+

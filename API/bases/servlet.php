@@ -4,7 +4,7 @@ mb_internal_encoding("utf-8");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 require_once __DIR__."/exceptions.php";
-require_once __DIR__."/../utilities/auth.php";
+require_once __DIR__."/../db/database.php";
 
 abstract class Servlet {
     function doPost() {}
@@ -69,7 +69,11 @@ abstract class Servlet {
     }
 
     function assert_user($key) {
-        
+        $bd = Database::getInstance();
+        $rs = $bd->call_procedure("sp_auth", "'$key'")[0];
+        if ($rs["id"] == 0) {
+            throw new AuthenticationException('Llave incorrecta');
+        }
     }
 }
 
