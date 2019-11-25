@@ -9,8 +9,8 @@ select * from user;
 drop table if exists dog;
 create table dog(
     idDog int(3) not null primary key,
-    name varchar(20) not null,
-    image varchar(100) not null,
+    name varchar(100) not null,
+    image varchar(500) not null,
     likes int(6) not null
 )ENGINE=InnoDB;
 
@@ -57,4 +57,5 @@ begin
 	end if;
 end; qwe
 delimiter ;
-
+call sp_auth('lala');
+select * from user;
