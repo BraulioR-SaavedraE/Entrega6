@@ -21,6 +21,7 @@ create table feed(
     date datetime not null,
     text varchar(500) not null,
     foreign key(idDog) references dog(idDog) on delete cascade on update cascade
+    foreign key(idUser) references dog(idUser) on delete cascade on update cascade
 )ENGINE=InnoDB;
 
 drop table if exists user;
