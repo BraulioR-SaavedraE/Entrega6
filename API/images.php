@@ -1,9 +1,12 @@
 <?php
 
-for($i = 0; $i < 15; $i++) {
+for($i = 5; $i < 15; $i++) {
     $file = fopen("sql/images".($i+1).".txt", "a");
-    for($j = 1; $j < 4000; $j++) {
-        if ($i == 0 && $j < 1268) {
+    for($j = 0; $j < 4000; $j++) {
+        if ($i == 5 && $j < 2753) {
+            continue;
+        } 
+        if ($i == 6 && $j < 1702) {
             continue;
         }
         $cliente = curl_init();
