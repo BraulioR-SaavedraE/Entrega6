@@ -1,36 +1,32 @@
 <?php
+include 'conexion.php';
+$usuarios=$_GET['username'];
+$contrasena=$_GET['password'];
 
-require __DIR__."/db/database.php";
 
-//session_start();
+$sentencia=$conexion->prepare("SELECT * FROM user WHERE usuarios=? AND contrasena=?");
+$sentencia->bind_param('ss',$usuarios,$contrasena);
+$sentencia->execute();
 
-if($_SERVER["REQUEST_METHOD"] == "GET") {
-$user = $_GET["username"];
-$pass = $_GET["password"];
-$consulta="SELECT * FROM user WHERE username='$user' AND password='$pass' ";
-$db= Database::getInstance();
-$resultado=[];
+$resultado = $sentencia->get_result();
+$json = [];
 
-	try{
-		$rs = $db->consulta($consulta);
-		$identificador=$user.$pass;
-		if (count($rs) > 0) {
-			$resultado = [
+
+if ($fila = $resultado->fetch_assoc()) {
+	$identificador = $usuarios.$contrasena;
+	$json = [
 				"status" => "ok",
 				"key" => hash("sha256", $identificador),
-			];
-		} else {
-			$resultado = [
+			];    
+} else {
+		$json = [
+
 				"status" => "failed",
-				"key" => "incorrect username or password",
+				"Message" => "Wrong username or password",
 			];
-		}
-	}catch(Exception $e) {
-		$resultado = [
-			"status" => "failed",
-			"Message" => $e->getMessage(),
-		];
 	}
-	echo json_encode($resultado);
-}
+
+echo json_encode($json,JSON_UNESCAPED_UNICODE); 
+$sentencia->close();
+$conexion->close();
 ?>
