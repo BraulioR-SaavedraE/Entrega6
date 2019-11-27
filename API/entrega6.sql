@@ -13,14 +13,17 @@ create table dog(
     image varchar(500) not null,
     likes int(6) not null
 )ENGINE=InnoDB;
+select * from dog;
 
 drop table if exists feed;
 create table feed(
     idFeed int(3) not null primary key,
     idDog int(3) not null,
+    idUser int(3) not null,
     date datetime not null,
     text varchar(500) not null,
-    foreign key(idDog) references dog(idDog) on delete cascade on update cascade
+    foreign key(idDog) references dog(idDog) on delete cascade on update cascade,
+    foreign key(idUser) references user(idUser) on delete cascade on update cascade
 )ENGINE=InnoDB;
 
 drop table if exists user;
@@ -56,5 +59,3 @@ begin
 	end if;
 end; qwe
 delimiter ;
-call sp_auth('lala');
-select * from user;
