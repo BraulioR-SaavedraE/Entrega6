@@ -3,8 +3,8 @@ create database id11511314_entrega6;
 CREATE USER 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567';
 GRANT ALL PRIVILEGES ON *.* TO 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567*';
 use id11511314_entrega6;
-
 select * from user;
+# 73796e0f140f42e61d8d166bafe364546fe22dccc1ac16e917af86ff8c22a998
 
 drop table if exists dog;
 create table dog(
