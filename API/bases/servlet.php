@@ -74,6 +74,7 @@ abstract class Servlet {
         if ($rs["id"] == 0) {
             throw new AuthenticationException('Llave incorrecta');
         }
+        return $rs["id"];
     }
 }
 

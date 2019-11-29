@@ -3,7 +3,7 @@ create database id11511314_entrega6;
 CREATE USER 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567';
 GRANT ALL PRIVILEGES ON *.* TO 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567*';
 use id11511314_entrega6;
-select * from user;
+select * from dog where idDog = 30093;
 # 73796e0f140f42e61d8d166bafe364546fe22dccc1ac16e917af86ff8c22a998
 
 drop table if exists dog;
@@ -57,5 +57,37 @@ begin
 	else
 		select 0 as id;
 	end if;
+end; qwe
+delimiter ;
+
+drop procedure if exists sp_like;
+delimiter qwe
+create procedure sp_like(in idD int)
+sp: begin
+	if not exists (select * from dog where idDog = idD) then
+		select 'The dog doesn\'t exists' as msj;
+        leave sp;
+	end if;
+    update dog set likes = likes + 1 where idDog = idD;
+    select 'ok' as msj;
+end; qwe
+delimiter ;
+
+drop procedure if exists sp_feed;
+delimiter qwe
+create procedure sp_feed(in idD int, in idU int, in tex varchar(500))
+sp: begin
+	declare idF int;
+    if not exists (select * from dog where idDog = idD) then
+		select 'The dog doesn\'t exists' as msj;
+        leave sp;
+	end if;
+    if not exists (select * from user where idUser = idU) then
+		select 'The user doesn\'t exists' as msj;
+        leave sp;
+	end if;
+    set idF = (select ifnull(max(idFeed),0) + 1 from feed);
+    insert into feed value(idF, idD, idU, current_timestamp, tex);
+    select 'ok' as msj;
 end; qwe
 delimiter ;
