@@ -24,17 +24,16 @@ class Detalles extends Servlet {
 				if (count($crs) > 0) {
 					for ($i = 0; $i < count($crs); $i++)
 						array_push($comentarios, [
-							"fecha" => $crs[$i][date],
-							"user_id" => $crs[$i][idUser],
-							"text" => $crs[$i][text]
+							"fecha" => $crs[$i]['date'],
+							"user_id" => $crs[$i]['idUser'],
+							"text" => $crs[$i]['text']
 						]);
 				}
 
 				return [
-					"Id" => $drs[0][idFeed],
-					"name" => $drs[0][name],
-					"imagen" => $drs[0][image],
-					"likes" => $drs[0][likes],
+					"name" => $drs[0]['name'],
+					"imagen" => $drs[0]['image'],
+					"likes" => $drs[0]['likes'],
 					"comentarios" => $comentarios
 				];
 			}
