@@ -1,11 +1,13 @@
+# base de datos a crear
 create database id11511314_entrega6;
 
+# Usuario que realizará la conexión con la base
 CREATE USER 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567';
 GRANT ALL PRIVILEGES ON *.* TO 'id11511314_dogspott'@'localhost' IDENTIFIED BY 'Entrar567*';
+# Ocupamos la base
 use id11511314_entrega6;
-select * from dog where idDog = 30093;
-# 73796e0f140f42e61d8d166bafe364546fe22dccc1ac16e917af86ff8c22a998
 
+# Tabla para los perros
 drop table if exists dog;
 create table dog(
     idDog int(3) not null primary key,
@@ -15,6 +17,7 @@ create table dog(
 )ENGINE=InnoDB;
 select * from dog;
 
+# Tabla para los comentarios de los perros
 drop table if exists feed;
 create table feed(
     idFeed int(3) not null primary key,
@@ -26,6 +29,7 @@ create table feed(
     foreign key(idUser) references user(idUser) on delete cascade on update cascade
 )ENGINE=InnoDB;
 
+# Tabla para los usuarios
 drop table if exists user;
 create table user(
     idUser int(3) not null primary key,
@@ -33,6 +37,7 @@ create table user(
     password varchar(100) not null
 )ENGINE=InnoDB;
 
+# Procedure que registra un usuario dado en la base de datos
 drop procedure if exists sp_signup;
 delimiter qwe
 create procedure sp_signup(in us varchar(20), in pas varchar(100))
@@ -48,6 +53,7 @@ sp: begin
 end; qwe
 delimiter ;
 
+# Procedure que verifica la validéz de una llave de autenticación
 drop procedure if exists sp_auth;
 delimiter qwe
 create procedure sp_auth(in ky varchar(100))
@@ -60,6 +66,7 @@ begin
 end; qwe
 delimiter ;
 
+# Procedure que aumenta los likes de un perro
 drop procedure if exists sp_like;
 delimiter qwe
 create procedure sp_like(in idD int)
@@ -73,6 +80,7 @@ sp: begin
 end; qwe
 delimiter ;
 
+# Procedure que registra un comentario para un perro
 drop procedure if exists sp_feed;
 delimiter qwe
 create procedure sp_feed(in idD int, in idU int, in tex varchar(500))
