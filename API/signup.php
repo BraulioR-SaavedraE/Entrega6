@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__."/db/database.php";
 require_once __DIR__."/bases/servlet.php";
+/**
+ * Servlet para registrar usuarios
+ */
 class Signup extends Servlet {
     function doGet() {
         parent::assert_array_parameters($_GET, ["username", 'password']);

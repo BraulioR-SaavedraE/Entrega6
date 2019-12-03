@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__."/db/database.php";
 require_once __DIR__."/bases/servlet.php";
+/**
+ * Servlet para obtener el Feed de perros
+ */
 class Feed extends Servlet {
     function doGet() {
         parent::assert_array_parameters($_GET, ["key"]);

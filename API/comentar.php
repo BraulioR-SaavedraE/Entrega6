@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__."/db/database.php";
 require_once __DIR__."/bases/servlet.php";
+/**
+ * Servlet para dejar un comentario para un perro
+ */
 class Comentar extends Servlet{
     function doPost() {
         parent::assert_array_parameters($_GET, ["key"]);
